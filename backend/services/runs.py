@@ -76,7 +76,6 @@ class RunService:
             # Plan steps with initial pending statuses
             "plan": [
                 {"name": "fetch-issue-details", "status": "pending"},
-                {"name": "portia-analysis", "status": "pending"},
                 {"name": "analyze-repository", "status": "pending"},
                 {"name": "create-branch", "status": "pending"},
                 {"name": "push-failing-test", "status": "pending"},
@@ -132,8 +131,7 @@ class RunService:
 
         # Sequence of steps including which ones are approval gates
         steps = [
-            ("fetch-issue-details", False),  # Add this step to fetch issue details first
-            ("portia-analysis", False),
+            ("fetch-issue-details", False),
             ("analyze-repository", False),
             ("create-branch", False),
             ("push-failing-test", False),
@@ -151,8 +149,7 @@ class RunService:
             "pr_number": None,
             "pr_title": None,
             "issue_details": None,
-            "repo_analysis": None,
-            "portia_plan": None
+            "repo_analysis": None
         }
 
         for step_name, is_gate in steps:
@@ -175,24 +172,6 @@ class RunService:
                         await q.put({"type": "log", "data": {"message": f"✅ Fetched issue details"}})
                     except Exception as e:
                         await q.put({"type": "log", "data": {"message": f"❌ Error fetching issue details: {e}"}})
-                
-                elif step_name == "portia-analysis":
-                    # Portia advanced analysis and workflow planning
-                    await q.put({"type": "log", "data": {"message": "🔮 Portia: Starting advanced AI analysis and workflow planning..."}})
-                    try:
-                        from backend.services.portia_service import portia_service
-                        portia_plan = portia_service.create_portia_plan(run["issueUrl"], run["repo"])
-                        run["github_data"]["portia_plan"] = portia_plan
-                        
-                        if portia_plan.get("status") == "processing":
-                            # Portia is running in background
-                            analysis_id = portia_plan.get("portia_plan_id")
-                            await q.put({"type": "log", "data": {"message": f"🔮 Portia: Analysis started in background (ID: {analysis_id})"}})
-                            await q.put({"type": "log", "data": {"message": "🔮 Portia: Analysis will continue in background while workflow proceeds"}})
-                        else:
-                            await q.put({"type": "log", "data": {"message": "🔮 Portia: Advanced analysis completed successfully"}})
-                    except Exception as e:
-                        await q.put({"type": "log", "data": {"message": f"🔮 Portia: Analysis failed: {e}"}})
                 
                 elif step_name == "analyze-repository":
                     # Analyze repository structure and context

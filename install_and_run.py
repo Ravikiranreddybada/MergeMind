@@ -84,8 +84,7 @@ def install_python_deps(pip_exec: Path) -> None:
     
     # Install AI dependencies
     ai_deps = [
-        "openai==0.28",  # Use compatible version
-        "portia-sdk-python"
+        "groq"
     ]
     
     # Install all dependencies
@@ -114,18 +113,18 @@ def setup_environment() -> None:
     
     # Check for existing environment variables
     github_token = os.getenv('GITHUB_TOKEN')
-    openai_key = os.getenv('OPENAI_API_KEY')
+    groq_key = os.getenv('GROQ_API_KEY')
     
     if not github_token:
         print("⚠️  GITHUB_TOKEN not found in environment")
         print("   Set it with: export GITHUB_TOKEN=your_github_token")
         print("   Or add it to a .env file")
     
-    if not openai_key:
-        print("⚠️  OPENAI_API_KEY not found in environment")
-        print("   Set it with: export OPENAI_API_KEY=your_openai_key")
+    if not groq_key:
+        print("⚠️  GROQ_API_KEY not found in environment")
+        print("   Set it with: export GROQ_API_KEY=your_groq_key")
         print("   Or add it to a .env file")
-        print("   Get one at: https://platform.openai.com/api-keys")
+        print("   Get one at: https://console.groq.com/keys")
     
     # Create .env file if it doesn't exist
     env_file = Path(".env")

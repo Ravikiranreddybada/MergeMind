@@ -8,7 +8,6 @@ interface WorkflowTimelineProps {
 
 const stepNames = {
   'fetch-issue-details': '📋 Fetch Issue Details',
-  'portia-analysis': '🔮 Portia Analysis',
   'analyze-repository': '📊 Analyze Repository',
   'create-branch': '🌿 Create Branch',
   'push-failing-test': '🧪 Push Failing Test',
@@ -21,7 +20,6 @@ const stepNames = {
 
 const stepDescriptions = {
   'fetch-issue-details': 'Fetching issue details from GitHub',
-  'portia-analysis': 'Analyzing issue with Portia AI',
   'analyze-repository': 'Analyzing repository structure and context',
   'create-branch': 'Creating feature branch for the fix',
   'push-failing-test': 'Pushing test files to verify the issue',

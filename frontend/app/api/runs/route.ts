@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 // Mock data for development
 const mockRuns = [
@@ -39,8 +39,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
   try {
-    const body = await req.json();
     const res = await fetch(`${API_BASE}/runs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

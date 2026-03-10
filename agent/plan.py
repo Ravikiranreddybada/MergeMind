@@ -1,49 +1,30 @@
 """
-Bug-to-PR Autopilot Portia Plan
+Bug-to-PR Autopilot Plan
 
-This module defines a Plan subclass for Portia that coordinates the
+This module defines a Plan class that coordinates the
 workflow from a bug report (GitHub issue or Sentry event) to a pull
 request with a proposed fix. The plan is intentionally skeletal but
 illustrates the key checkpoints and clarifications outlined in the
 project specification. You should adapt this file when integrating
 with real tools (GitHub, Slack, CI, etc.) by supplying concrete
-implementations for the workspace, diff and other utilities. The
-`final_output_summarizer` is imported from Portia's utilities to
-compose human‑readable summaries for pull request bodies and Slack
-messages.
+implementations for the workspace, diff and other utilities.
 
-To use this plan you will need to register it with the Portia SDK
-alongside your configured tool suite. See the project README for
-details.
+To use this plan you will need to register it with your tool suite.
+See the project README for details.
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List
 
-try:
-    from portia import Plan as PortiaPlan, step, clarification
-except ImportError:
-    # Mock decorators for the demo - in production, these would be from the actual Portia SDK
-    class Plan:
-        def __init__(self, name: str) -> None:
-            self.name = name
-            self.ctx: Dict[str, Any] = {}
-    
-    def step(name: str, after: str = None):
-        def decorator(func):
-            return func
-        return decorator
-    
-    def clarification(name: str):
-        def decorator(func):
-            return func
-        return decorator
-    
-    PortiaPlan = Plan
+# Base Plan class for the workflow
+class Plan:
+    def __init__(self, name: str) -> None:
+        self.name = name
+        self.ctx: Dict[str, Any] = {}
 
-# For this demo, we'll use a base Plan class that simulates the Portia plan structure
-Plan = PortiaPlan
+# For this demo, we'll use a base Plan class
+Plan = Plan
 
 # Mock final_output_summarizer for the demo
 def final_output_summarizer(data: Dict[str, Any]) -> Dict[str, Any]:

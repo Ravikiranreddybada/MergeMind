@@ -6,13 +6,11 @@ echo "🚀 Starting Backend in LIVE MODE..."
 # Set all required environment variables
 export GITHUB_TOKEN="your_github_token_here"
 export OPENAI_API_KEY="your_openai_api_key_here"
-export PORTIA_API_KEY="your_portia_api_key_here"
 
 # Verify environment variables are set
 echo "✅ Environment Variables:"
 echo "   GitHub Token: ${GITHUB_TOKEN:0:10}..."
 echo "   OpenAI API Key: ${OPENAI_API_KEY:0:10}..."
-echo "   Portia API Key: ${PORTIA_API_KEY:0:10}..."
 
 # Activate virtual environment and start backend
 source venv/bin/activate

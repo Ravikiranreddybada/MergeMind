@@ -61,7 +61,6 @@ ormsgpack==1.10.0
 packaging==25.0
 pandas==2.3.2
 pluggy==1.6.0
-portia-sdk-python==0.7.2
 posthog==6.6.1
 propcache==0.3.2
 pydantic==2.11.7

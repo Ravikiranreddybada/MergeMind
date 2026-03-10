@@ -5,10 +5,9 @@ Comprehensive Workflow Test Script
 
 This script tests the complete Bug-to-PR autopilot workflow including:
 1. Backend API functionality
-2. Portia integration with timeout handling
-3. GitHub operations
-4. Frontend connectivity
-5. Live status monitoring
+2. GitHub operations
+3. Frontend connectivity
+4. Live status monitoring
 
 Usage:
     python test_full_workflow.py
@@ -233,29 +232,6 @@ class WorkflowTester:
             
             time.sleep(STATUS_CHECK_INTERVAL)
     
-    def check_portia_integration(self) -> bool:
-        """Check if Portia integration is working"""
-        try:
-            # Check if Portia service is available
-            response = requests.get(f"{BACKEND_URL}/health", timeout=10)
-            if response.status_code == 200:
-                health_data = response.json()
-                services = health_data.get("services", {})
-                
-                if "portia" in services:
-                    self.log(f"✅ Portia service detected: {services['portia']}")
-                    return True
-                else:
-                    self.log("⚠️ Portia service not found in health check", "WARNING")
-                    return False
-            else:
-                self.log("❌ Cannot check Portia integration", "ERROR")
-                return False
-                
-        except Exception as e:
-            self.log(f"❌ Portia integration check error: {e}", "ERROR")
-            return False
-    
     def check_github_integration(self) -> bool:
         """Check if GitHub integration is working"""
         try:
@@ -294,9 +270,6 @@ class WorkflowTester:
         
         # Step 2: Integration checks
         self.log("Step 2: Integration Checks")
-        if not self.check_portia_integration():
-            self.log("⚠️ Portia integration issue detected", "WARNING")
-        
         if not self.check_github_integration():
             self.log("⚠️ GitHub integration issue detected", "WARNING")
         
@@ -345,7 +318,7 @@ class WorkflowTester:
 
 def main():
     """Main test function"""
-    print("🚀 Portia Bug-to-PR Autopilot - Comprehensive Workflow Test")
+    print("🚀 Bug-to-PR Autopilot - Comprehensive Workflow Test")
     print("=" * 70)
     
     tester = WorkflowTester()

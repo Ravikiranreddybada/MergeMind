@@ -1,94 +1,15 @@
-# 🔮 AI-Powered Bug-to-PR Autopilot with Portia Integration
+# 🔮 AI-Powered Bug-to-PR Autopilot
 
 ## 📋 Project Overview
 
-The **AI-Powered Bug-to-PR Autopilot** is a sophisticated workflow automation system that transforms GitHub issues into production-ready pull requests using advanced AI analysis and intelligent workflow orchestration. The system integrates **Portia** for advanced AI-powered workflow management and repository analysis.
+The **AI-Powered Bug-to-PR Autopilot** is a sophisticated workflow automation system that transforms GitHub issues into production-ready pull requests using advanced AI analysis and intelligent workflow orchestration.
 
 ### 🎯 Core Mission
 
 Automate the entire process from bug report to pull request creation, leveraging:
-- **Portia AI Workflow Orchestration** for intelligent process management
 - **Repository Analysis** for context-aware fix generation
-- **OpenAI Integration** for intelligent content creation
+- **Groq Integration** for intelligent content creation
 - **Live GitHub Integration** for real-time repository operations
-
-## 🔮 Portia Integration
-
-### What is Portia?
-
-**Portia** is an advanced AI workflow orchestration system that provides:
-- **Intelligent Workflow Planning**: Automatically designs optimal workflows based on context
-- **Advanced Issue Analysis**: Deep understanding of problems with root cause analysis
-- **Risk Assessment**: Comprehensive safety and quality evaluation
-- **Context-Aware Recommendations**: Project-specific solutions and best practices
-
-### Portia's Role in This Project
-
-Portia serves as the **intelligent brain** of the autopilot system:
-
-#### 1. **Advanced Issue Analysis**
-```json
-{
-  "issue_classification": {
-    "type": "feature/documentation/bug",
-    "severity": "critical/high/medium/low",
-    "complexity": "simple/moderate/complex",
-    "impact_scope": "local/module/system-wide"
-  },
-  "root_cause_analysis": {
-    "primary_cause": "Identified root cause",
-    "contributing_factors": ["List of contributing factors"],
-    "system_implications": "Impact on system"
-  }
-}
-```
-
-#### 2. **Intelligent Workflow Planning**
-```json
-{
-  "workflow_steps": [
-    {
-      "step_id": "unique_id",
-      "name": "Step name",
-      "description": "Detailed description",
-      "automated": true/false,
-      "requires_approval": true/false,
-      "estimated_duration": "Time estimate",
-      "dependencies": ["List of dependencies"]
-    }
-  ],
-  "resource_allocation": {
-    "required_tools": ["List of tools needed"],
-    "team_involvement": ["Team members needed"],
-    "time_estimates": {
-      "total_duration": "Total time",
-      "critical_path": "Critical path duration"
-    }
-  }
-}
-```
-
-#### 3. **Risk Assessment**
-```json
-{
-  "technical_risks": [
-    {
-      "risk": "Risk description",
-      "probability": "high/medium/low",
-      "impact": "high/medium/low",
-      "mitigation": "Mitigation strategy"
-    }
-  ],
-  "overall_risk_score": "high/medium/low",
-  "recommendations": ["List of recommendations"]
-}
-```
-
-#### 4. **Context-Aware Recommendations**
-- **Project-specific considerations**: Tailored to the specific repository
-- **Team workflow alignment**: Matches existing team processes
-- **Code quality standards**: Ensures adherence to project standards
-- **Documentation requirements**: Specifies needed documentation
 
 ## 🏗️ System Architecture
 
@@ -96,14 +17,14 @@ Portia serves as the **intelligent brain** of the autopilot system:
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   FastAPI       │    │   Portia        │    │   OpenAI        │
-│   Backend       │◄──►│   Service       │◄──►│   API           │
+│   FastAPI       │    │   Groq API      │    │   Repository    │
+│   Backend       │◄──►│   (LLM)         │◄──►│   Analyzer      │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   GitHub        │    │   Repository    │    │   AI Fix        │
-│   Service       │    │   Analyzer      │    │   Generator     │
+│   GitHub        │    │   AI Fix        │    │   Workflow      │
+│   Service       │    │   Generator     │    │   Service       │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
@@ -126,11 +47,9 @@ Portia serves as the **intelligent brain** of the autopilot system:
 
 ### **Complete Workflow Steps**
 
-1. **🔮 Portia Analysis** (Automated)
-   - Advanced AI-powered issue analysis
-   - Root cause identification
-   - Risk assessment and mitigation planning
-   - Context-aware recommendations
+1. **📋 Fetch Issue Details** (Automated)
+   - Fetch issue details from GitHub
+   - Parse issue content and metadata
 
 2. **📊 Repository Analysis** (Automated)
    - Project structure analysis
@@ -170,8 +89,7 @@ Portia serves as the **intelligent brain** of the autopilot system:
 
 - **FastAPI**: Modern Python web framework for API development
 - **Uvicorn**: ASGI server for running FastAPI applications
-- **Portia SDK**: Advanced AI workflow orchestration
-- **OpenAI API**: AI-powered analysis and content generation (GPT-3.5-turbo)
+- **Groq API**: AI-powered analysis and content generation (llama-3.1-70b-versatile)
 - **GitHub API**: Repository operations and integration
 - **Pydantic**: Data validation and serialization
 - **Asyncio**: Asynchronous programming for concurrent operations
@@ -187,7 +105,6 @@ Portia serves as the **intelligent brain** of the autopilot system:
 
 ### **AI & Automation Technologies**
 
-- **Portia Service**: Advanced workflow orchestration
 - **Repository Analyzer**: Comprehensive project analysis
 - **AI Fix Generator**: Context-aware content creation
 - **GitHub Service**: Real-time repository operations
@@ -206,13 +123,10 @@ Portia serves as the **intelligent brain** of the autopilot system:
 
 ```bash
 # Required for AI features
-OPENAI_API_KEY=sk-your_openai_api_key_here
+GROQ_API_KEY=sk-your_groq_api_key_here
 
 # Required for GitHub integration
 GITHUB_TOKEN=ghp_your_github_token_here
-
-# Optional for advanced features
-PORTIA_API_KEY=your_portia_key_here
 ```
 
 ### **Repository Configuration**
@@ -222,11 +136,6 @@ PORTIA_API_KEY=your_portia_key_here
 allowlist:
   - "your-username/your-repo"
   - "organization/repository"
-
-# Portia integration settings
-portia:
-  enabled: true
-  llm_provider: "openai"  # openai, anthropic, etc.
 ```
 
 ### **API Endpoints**
@@ -246,130 +155,20 @@ GET    /stats                  # System statistics
 ### **Documentation Issues**
 
 - **Issue**: "Add CONTRIBUTING.md with guidelines"
-- **Portia Analysis**: Identifies as documentation enhancement, low risk
 - **AI Solution**: Creates comprehensive contributing guidelines
 - **Result**: Professional documentation with clear instructions
 
 ### **Bug Fixes**
 
 - **Issue**: "Fix authentication error in login endpoint"
-- **Portia Analysis**: Identifies as security bug, high priority
 - **AI Solution**: Generates secure authentication fix
 - **Result**: Production-ready code with proper error handling
 
 ### **Feature Requests**
 
 - **Issue**: "Add user profile management"
-- **Portia Analysis**: Identifies as feature request, medium complexity
 - **AI Solution**: Creates complete feature implementation
 - **Result**: Full feature with tests and documentation
-
-## 🔮 Portia Features in Detail
-
-### **1. Advanced Issue Analysis**
-
-Portia performs comprehensive issue analysis:
-
-```python
-# Portia analyzes the issue with context
-issue_analysis = {
-    "issue_classification": {
-        "type": "feature",
-        "severity": "medium",
-        "complexity": "moderate",
-        "impact_scope": "module"
-    },
-    "root_cause_analysis": {
-        "primary_cause": "Missing functionality",
-        "contributing_factors": ["No existing implementation", "Clear user need"],
-        "system_implications": "Improves user experience"
-    },
-    "solution_strategy": {
-        "recommended_approach": "Implement feature with proper testing",
-        "alternatives": ["Workaround solution", "Third-party integration"],
-        "implementation_notes": "Follow existing code patterns",
-        "testing_strategy": "Unit tests + integration tests"
-    }
-}
-```
-
-### **2. Intelligent Workflow Planning**
-
-Portia designs optimal workflows:
-
-```python
-# Portia creates intelligent workflow plans
-workflow_plan = {
-    "workflow_steps": [
-        {
-            "step_id": "analysis",
-            "name": "Repository Analysis",
-            "description": "Analyze project structure and context",
-            "automated": True,
-            "requires_approval": False,
-            "estimated_duration": "30 seconds",
-            "dependencies": []
-        },
-        {
-            "step_id": "fix_generation",
-            "name": "AI Fix Generation",
-            "description": "Generate contextual fix using AI",
-            "automated": True,
-            "requires_approval": True,
-            "estimated_duration": "2 minutes",
-            "dependencies": ["analysis"]
-        }
-    ],
-    "resource_allocation": {
-        "required_tools": ["GitHub API", "OpenAI API"],
-        "team_involvement": ["Developer review"],
-        "time_estimates": {
-            "total_duration": "5 minutes",
-            "critical_path": "3 minutes"
-        }
-    }
-}
-```
-
-### **3. Risk Assessment**
-
-Portia evaluates potential risks:
-
-```python
-# Portia assesses risks comprehensively
-risk_assessment = {
-    "technical_risks": [
-        {
-            "risk": "Breaking changes to existing functionality",
-            "probability": "low",
-            "impact": "high",
-            "mitigation": "Comprehensive testing before deployment"
-        }
-    ],
-    "operational_risks": [
-        {
-            "risk": "Deployment complexity",
-            "probability": "medium",
-            "impact": "medium",
-            "mitigation": "Automated deployment pipeline"
-        }
-    ],
-    "business_risks": [
-        {
-            "risk": "User adoption",
-            "probability": "low",
-            "impact": "medium",
-            "mitigation": "User feedback and gradual rollout"
-        }
-    ],
-    "overall_risk_score": "low",
-    "recommendations": [
-        "Implement comprehensive testing",
-        "Use feature flags for gradual rollout",
-        "Monitor system performance"
-    ]
-}
-```
 
 ## 📊 Repository Analysis Features
 
@@ -505,17 +304,12 @@ vercel --prod
    - Claude integration
    - Custom fine-tuned models
 
-3. **Enhanced Portia Integration**
-   - Real-time Portia SDK integration
-   - Advanced workflow orchestration
-   - Predictive analytics
-
-4. **CI/CD Integration**
+3. **CI/CD Integration**
    - GitHub Actions integration
    - Automated testing
    - Deployment automation
 
-5. **Team Collaboration**
+4. **Team Collaboration**
    - Multi-user support
    - Role-based access control
    - Team workflow management
@@ -543,8 +337,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Portia Labs** for advanced AI workflow orchestration
-- **OpenAI** for powerful AI capabilities
+- **Groq** for fast AI inference
 - **GitHub** for excellent API and platform
 - **FastAPI** for modern Python web framework
 - **Next.js** for React framework
@@ -552,4 +345,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**🔮 AI-Powered Bug-to-PR Autopilot with Portia Integration** - Transforming GitHub issues into production-ready pull requests with intelligent AI orchestration.
+**🔮 AI-Powered Bug-to-PR Autopilot** - Transforming GitHub issues into production-ready pull requests with intelligent AI.
+

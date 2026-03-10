@@ -2,7 +2,7 @@
 
 **MergeMind** turns GitHub issues into pull requests automatically — using AI to analyze the problem, generate a fix, and open a PR, with a human approval step before anything is merged.
 
-Built with **FastAPI**, **Next.js 14**, **OpenAI**, and **Portia AI**.
+Built with **FastAPI**, **Next.js 14**, and **Groq AI**.
 
 ---
 
@@ -22,7 +22,7 @@ Built with **FastAPI**, **Next.js 14**, **OpenAI**, and **Portia AI**.
 |---|---|
 | Frontend | Next.js 14, TypeScript, Tailwind CSS |
 | Backend | FastAPI, Python 3.9+ |
-| AI | OpenAI GPT, Portia AI |
+| AI | Groq LLM (llama-3.1-70b-versatile) |
 | Integration | GitHub REST API |
 
 ---
@@ -42,8 +42,7 @@ This installs all Python and Node.js dependencies, sets up the environment, and 
 ```bash
 # Edit the .env file
 GITHUB_TOKEN=ghp_your_token_here
-OPENAI_API_KEY=sk-your_key_here
-PORTIA_API_KEY=your_portia_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
 > **No keys?** The app runs in demo mode — all GitHub operations are simulated so you can still explore the full workflow.
@@ -64,8 +63,7 @@ MergeMind/
 │   └── services/
 │       ├── runs.py              # Workflow state machine
 │       ├── github.py            # GitHub API integration
-│       ├── ai_fix_generator.py  # OpenAI-powered fix generation
-│       ├── portia_service.py    # Portia AI orchestration
+│       ├── ai_fix_generator.py  # Groq-powered fix generation
 │       └── repo_analyzer.py     # Repository structure analysis
 ├── frontend/
 │   └── app/
@@ -114,8 +112,7 @@ python -m pytest tests/
 | Variable | Required | Description |
 |---|---|---|
 | `GITHUB_TOKEN` | Yes (for real PRs) | GitHub personal access token |
-| `OPENAI_API_KEY` | Yes (for AI fixes) | OpenAI API key |
-| `PORTIA_API_KEY` | Optional | Portia AI API key |
+| `GROQ_API_KEY` | Yes (for AI fixes) | Groq API key |
 
 ---
 

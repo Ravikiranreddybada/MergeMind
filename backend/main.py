@@ -2,7 +2,7 @@
 FastAPI backend for the Bug‑to‑PR Autopilot
 ===========================================
 
-This module exposes a minimal REST API to manage Portia plan runs.
+This module exposes a minimal REST API to manage bug-to-PR runs.
 It is intentionally lightweight and avoids external dependencies for
 state persistence or SSE streaming. In a production deployment you
 should replace the in‑memory RunService with an implementation that
@@ -19,7 +19,6 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 from .services.runs import RunService
-from .services.portia_service import portia_service
 
 import os
 
@@ -47,8 +46,7 @@ async def health_check():
         "version": "1.0.0",
         "services": {
             "backend": "running",
-            "github": "connected" if run_service._runs else "idle",
-            "portia": "enabled" if portia_service.portia_enabled else "disabled"
+            "github": "connected" if run_service._runs else "idle"
         }
     }
 
@@ -131,18 +129,3 @@ async def approve_run(run_id: str, body: dict):
     await run_service.approve(run_id, gate, decision, note)
     return {"status": "success"}
 
-@app.get("/portia/analysis/{analysis_id}")
-async def get_portia_analysis_status(analysis_id: str):
-    """Get Portia analysis status"""
-    status = portia_service.get_analysis_status(analysis_id)
-    if not status:
-        raise HTTPException(status_code=404, detail="Analysis not found")
-    return status
-
-@app.get("/portia/analyses")
-async def list_portia_analyses():
-    """List all Portia analyses"""
-    return {
-        "analyses": portia_service.running_analyses,
-        "count": len(portia_service.running_analyses)
-    }

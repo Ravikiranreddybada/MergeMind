@@ -46,7 +46,7 @@ export default function RunDetailPage() {
         // Reduce refresh frequency during AI-intensive steps
         if (data?.status === 'running') {
           const currentStep = data.plan?.find(step => step.status === 'running');
-          if (currentStep?.name === 'propose-fix' || currentStep?.name === 'portia-analysis') {
+          if (currentStep?.name === 'propose-fix') {
             return 3000; // Refresh every 3 seconds during AI steps
           }
         }
@@ -67,7 +67,7 @@ export default function RunDetailPage() {
   useEffect(() => {
     if (run && ['created', 'running'].includes(run.status)) {
       const currentStep = run.plan?.find(step => step.status === 'running');
-      const isAIStep = currentStep?.name === 'propose-fix' || currentStep?.name === 'portia-analysis';
+      const isAIStep = currentStep?.name === 'propose-fix';
       
       const interval = setInterval(() => {
         mutate();
@@ -119,7 +119,7 @@ export default function RunDetailPage() {
 
   // Check if we're in an AI-intensive step
   const currentStep = run.plan?.find(step => step.status === 'running');
-  const isAIStep = currentStep?.name === 'propose-fix' || currentStep?.name === 'portia-analysis';
+  const isAIStep = currentStep?.name === 'propose-fix';
   
 
 
@@ -285,12 +285,6 @@ export default function RunDetailPage() {
                         >
                           #{run.github_data.pr_number} - {run.github_data.pr_title}
                         </a>
-                      </div>
-                    )}
-                    {run.github_data?.portia_plan?.portia_plan_id && (
-                      <div>
-                        <span className="text-sm font-medium text-gray-600">Portia Plan:</span>
-                        <p className="text-sm text-gray-900 font-mono">{run.github_data.portia_plan.portia_plan_id}</p>
                       </div>
                     )}
                   </div>

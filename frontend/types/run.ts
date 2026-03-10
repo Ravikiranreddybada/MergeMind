@@ -7,11 +7,6 @@ export interface RunDetail {
   plan: { name: string; status: string }[];
   approvals: Record<string, any>;
   github_data?: {
-    portia_plan?: {
-      portia_plan_id: string;
-      status: string;
-      portia_features_used: string[];
-    };
     branch?: string;
     pr_url?: string;
     pr_number?: number;
