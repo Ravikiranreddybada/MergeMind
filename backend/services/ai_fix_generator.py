@@ -1,13 +1,12 @@
 """
 AI-Powered Fix Generator
-Generates intelligent code fixes for GitHub issues using OpenAI's GPT models.
+Generates intelligent code fixes for GitHub issues using Groq's LLM models.
 
 Copyright (c) 2025 MergeMind
 """
 
 import os
 import json
-import openai
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 from .repo_analyzer import repo_analyzer
@@ -16,15 +15,41 @@ class AIFixGenerator:
     """AI-powered fix generator for GitHub issues"""
     
     def __init__(self):
-        self.api_key = os.getenv('OPENAI_API_KEY')
+        self.api_key = os.getenv('GROQ_API_KEY')
+        self.ai_enabled = False
         if self.api_key:
-            # Initialize OpenAI client
-            from openai import OpenAI
-            self.client = OpenAI(api_key=self.api_key)
-            print("🤖 AI-powered fix generation enabled with OpenAI")
+            # Initialize Groq client
+            from groq import Groq
+            self.client = Groq(api_key=self.api_key)
+            self.ai_enabled = True
+            print("🤖 AI-powered fix generation enabled with Groq")
         else:
             self.client = None
-            print("⚠️  OpenAI API key not found. AI fix generation disabled.")
+            print("⚠️  Groq API key not found. AI fix generation disabled.")
+    
+    def analyze_issue(self, issue_data: Dict[str, Any], repo_name: str) -> Dict[str, Any]:
+        """Analyze issue using AI - returns analysis without generating fix"""
+        try:
+            # Analyze repository structure
+            print(f"🔍 Analyzing repository structure for {repo_name}...")
+            repo_analysis = repo_analyzer.analyze_repository(repo_name)
+            
+            # Analyze the issue with AI
+            print("🧠 Analyzing issue with AI...")
+            analysis = self._analyze_issue_with_ai(issue_data, repo_name, repo_analysis)
+            
+            if not analysis:
+                print("❌ AI analysis failed.")
+                return {"status": "failed", "error": "AI analysis failed"}
+            
+            return {
+                "status": "success",
+                "analysis": analysis,
+                "repo_analysis": repo_analysis
+            }
+        except Exception as e:
+            print(f"❌ AI analysis failed: {e}")
+            return {"status": "error", "error": str(e)}
     
     def analyze_issue_and_generate_fix(self, issue_data: Dict[str, Any], repo_name: str) -> Dict[str, Any]:
         """Main method to analyze issue and generate complete fix"""
@@ -98,7 +123,7 @@ Focus on creating the ACTUAL files that solve the problem, not documentation abo
         
         try:
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="llama-3.1-70b-versatile",
                 messages=[
                     {"role": "system", "content": "You are an expert software developer and GitHub issue analyst. Analyze issues and provide detailed technical solutions. Always be specific about file names and types. If testing is mentioned, include appropriate test files."},
                     {"role": "user", "content": prompt}
@@ -252,7 +277,7 @@ Generate the ACTUAL content for {file_path} that directly addresses this issue. 
 """
         
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": f"You are an expert software developer. Create the ACTUAL content for {file_path} that directly solves the issue. Do not create documentation about the fix - create the fix itself."},
                 {"role": "user", "content": prompt}
@@ -383,7 +408,7 @@ Generate comprehensive, functional test content that actually tests the function
 """
         
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are an expert software tester and developer. Create meaningful, functional tests that verify real functionality. NEVER use placeholders or TODO comments."},
                 {"role": "user", "content": prompt}
@@ -481,7 +506,7 @@ The previous attempt generated placeholder content. Generate proper, functional 
 """
         
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are an expert developer. Generate ONLY real, functional content. NEVER use placeholders, TODO comments, or assert True. Create production-ready code."},
                 {"role": "user", "content": prompt}
@@ -519,7 +544,7 @@ Generate only the title, no additional text.
 """
         
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are an expert at writing clear, professional PR titles."},
                 {"role": "user", "content": prompt}
@@ -569,7 +594,7 @@ Make it comprehensive and professional.
 """
         
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are an expert at writing comprehensive, professional PR descriptions."},
                 {"role": "user", "content": prompt}
@@ -691,7 +716,7 @@ Closes #{issue_data.get('issue_number', 'N/A')}
             # Create actual LICENSE file
             license_content = """MIT License
 
-Copyright (c) 2025 MergeMind
+Copyright (c) 2025 ritik-prog
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -26,9 +26,9 @@ from .ai_fix_generator import ai_fix_generator
 
 
 class RunService:
-    """A lightweight manager for Portia plan runs with a basic state machine.
+    """A lightweight manager for runs with a basic state machine.
 
-    This service simulates the lifecycle of a Portia plan run. When a run
+    This service simulates the lifecycle of a run. When a run
     is started the service schedules an asynchronous task that walks
     through each checkpoint in the plan. Certain checkpoints—namely
     ``propose-fix`` and ``merge-pr``—are human‑in‑the‑loop gates. The
@@ -40,7 +40,7 @@ class RunService:
     subsequent steps are marked as cancelled.
 
     In a production environment this service would communicate with
-    Portia's runtime APIs to execute actual plans, persist state in
+    external APIs to execute actual plans, persist state in
     Redis/Postgres and stream logs. Here we provide just enough
     functionality to drive the frontend and unit tests.
     """
@@ -54,9 +54,9 @@ class RunService:
         self._tasks: Dict[str, asyncio.Task[None]] = {}
 
     async def start(self, issue_url: str, repo: str) -> str:
-        """Start a new plan run and schedule its execution.
+        """Start a new run and schedule its execution.
 
-        A run has seven sequential steps mirroring the Portia plan. Upon
+        A run has sequential steps. Upon
         creation the run status is ``created`` and a ``stateChanged``
         event is emitted. A background task is then scheduled to walk
         through the plan steps, updating their statuses and emitting
