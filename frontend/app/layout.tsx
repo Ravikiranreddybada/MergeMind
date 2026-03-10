@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Bug‑to‑PR Autopilot',
-  description: 'Automated bug reproduction and fix via Portia',
+  title: 'MergeMind',
+  description: 'AI-powered GitHub issue to Pull Request automation',
 };
 
 export default function RootLayout({

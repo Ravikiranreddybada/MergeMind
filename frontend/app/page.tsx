@@ -112,7 +112,7 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <RocketLaunchIcon className="w-4 h-4 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">Bug-to-PR Autopilot</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">MergeMind</span>
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/dashboard" className="btn btn-ghost">
@@ -133,11 +133,11 @@ export default function LandingPage() {
           <div className="text-center">
             <div className="animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-                Automate Your
+                From GitHub Issue
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {" "}Bug-to-PR{" "}
+                  {" "}to Pull Request{" "}
                 </span>
-                Workflow
+                Automatically
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
                 Transform bug reports into pull requests automatically with AI-powered analysis, 
@@ -224,7 +224,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                Why Choose Bug-to-PR Autopilot?
+                Why Choose MergeMind?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
                 Experience the future of automated development with our intelligent bug-to-PR pipeline.
@@ -292,7 +292,7 @@ export default function LandingPage() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                   <RocketLaunchIcon className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-xl font-bold">Bug-to-PR Autopilot</span>
+                <span className="text-xl font-bold">MergeMind</span>
               </div>
               <p className="text-gray-400">
                 Automating the future of software development with AI-powered bug resolution.
@@ -327,7 +327,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>© 2024 Bug-to-PR Autopilot. All rights reserved.</p>
+            <p>© 2026 MergeMind. All rights reserved.</p>
           </div>
         </div>
       </footer>

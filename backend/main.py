@@ -21,12 +21,15 @@ from datetime import datetime
 from .services.runs import RunService
 from .services.portia_service import portia_service
 
-app = FastAPI(title="Portia Bug-to-PR Autopilot", version="1.0.0")
+import os
+
+app = FastAPI(title="MergeMind API", version="1.0.0")
 
 # Configure CORS
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -40,7 +43,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "timestamp": "2024-01-01T00:00:00Z",
+        "timestamp": datetime.utcnow().isoformat() + "Z",
         "version": "1.0.0",
         "services": {
             "backend": "running",
