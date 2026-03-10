@@ -1,6 +1,8 @@
 """
 AI-Powered Fix Generator
 Generates intelligent code fixes for GitHub issues using OpenAI's GPT models.
+
+Copyright (c) 2025 MergeMind
 """
 
 import os
@@ -689,7 +691,7 @@ Closes #{issue_data.get('issue_number', 'N/A')}
             # Create actual LICENSE file
             license_content = """MIT License
 
-Copyright (c) 2025 ritik-prog
+Copyright (c) 2025 MergeMind
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
