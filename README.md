@@ -1,6 +1,7 @@
 # 🔮 MergeMind
 
-**Live API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**
+**Live Demo → [merge-mind-eight.vercel.app](https://merge-mind-eight.vercel.app)**  
+**API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**
 
 **MergeMind** turns GitHub issues into pull requests automatically
 

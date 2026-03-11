@@ -109,7 +109,7 @@ export default function Dashboard() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                   <RocketLaunchIcon className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">Bug-to-PR Autopilot</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-white">MergeMind</span>
               </Link>
             </div>
             <div className="flex items-center space-x-4">
