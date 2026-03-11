@@ -1,7 +1,8 @@
 # 🔮 MergeMind
 
 **Live Demo → [merge-mind-eight.vercel.app](https://merge-mind-eight.vercel.app)**  
-**API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**
+**API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**  
+**Demo Video → [Watch on Loom](https://www.loom.com/share/6635a391d1dd4614813f015d38c44c26)**
 
 ![MergeMind Demo](demo.png)
 

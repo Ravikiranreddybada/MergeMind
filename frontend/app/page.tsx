@@ -148,9 +148,9 @@ export default function LandingPage() {
                   Start Automating
                   <ArrowRightIcon className="w-5 h-5 ml-2" />
                 </Link>
-                <button className="btn btn-outline text-lg px-8 py-4">
+<a href="https://www.loom.com/share/6635a391d1dd4614813f015d38c44c26" target="_blank" className="btn btn-outline text-lg px-8 py-4">
                   Watch Demo
-                </button>
+                </a>
               </div>
             </div>
           </div>
