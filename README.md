@@ -3,6 +3,8 @@
 **Live Demo → [merge-mind-eight.vercel.app](https://merge-mind-eight.vercel.app)**  
 **API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**
 
+![MergeMind Demo](demo.png)
+
 **MergeMind** turns GitHub issues into pull requests automatically
 
 Built with **FastAPI**, **Next.js 14**, and **Groq AI**.
