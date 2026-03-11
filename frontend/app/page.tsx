@@ -30,7 +30,7 @@ export default function LandingPage() {
     {
       icon: <CpuChipIcon className="w-5 h-5" />,
       title: "AI-Powered Fix Generation",
-      description: "Leverage Portia AI to generate intelligent code fixes and test cases for identified issues."
+      description: "Leverage Groq AI to generate intelligent code fixes and test cases for identified issues."
     },
     {
       icon: <ShieldCheckIcon className="w-5 h-5" />,
