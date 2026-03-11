@@ -122,4 +122,3 @@ python -m pytest tests/
 
 ---
 
-*MergeMind was built as a demonstration of AI-assisted developer tooling with human oversight.*
