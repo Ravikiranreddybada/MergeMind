@@ -1,6 +1,8 @@
 # 🔮 MergeMind
 
-**MergeMind** turns GitHub issues into pull requests automatically — using AI to analyze the problem, generate a fix, and open a PR, with a human approval step before anything is merged.
+**Live API → [mergemind-01id.onrender.com](https://mergemind-01id.onrender.com)**
+
+**MergeMind** turns GitHub issues into pull requests automatically
 
 Built with **FastAPI**, **Next.js 14**, and **Groq AI**.
 
