@@ -325,7 +325,7 @@ export default function Dashboard() {
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">View Documentation</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">Learn how to integrate with your repositories and customize the workflow.</p>
                   <a 
-                    href="https://github.com/ritik-prog/n8n-automation-templates-5000" 
+                    href="https://github.com/Ravikiranreddybada/MergeMind" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="btn btn-outline w-full"
