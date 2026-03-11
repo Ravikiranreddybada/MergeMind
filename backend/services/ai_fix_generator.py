@@ -45,7 +45,10 @@ class AIFixGenerator:
             return {
                 "status": "success",
                 "analysis": analysis,
-                "repo_analysis": repo_analysis
+                "repo_analysis": repo_analysis,
+                "reasoning": analysis.get('reasoning', ''),
+                "files_to_edit": analysis.get('files_to_edit', []),
+                "code_fix": analysis.get('code_fix', '')
             }
         except Exception as e:
             print(f"❌ AI analysis failed: {e}")
@@ -88,28 +91,36 @@ class AIFixGenerator:
         repo_context = self._prepare_repo_context(repo_analysis)
         
         prompt = f"""
-Analyze this GitHub issue and provide a detailed technical solution:
-
-ISSUE:
-Title: {issue_title}
+You are an expert Senior Software Engineer Agent. 
+Analyze this GitHub Issue: {issue_title}
 Description: {issue_body}
 
-REPOSITORY CONTEXT:
-{repo_context}
+In the repository structure: {repo_context}
+
+Before providing the code, you MUST provide a detailed 'Reasoning' section.
+Format your response as a JSON object:
+{{
+  "reasoning": "A step-by-step technical plan of how you will fix this bug. This should explain your analysis, the approach you will take, and why this approach is appropriate.",
+  "files_to_edit": ["list", "of", "files", "to", "edit"],
+  "code_fix": "the actual code diff or full file content if applicable"
+}}
 
 IMPORTANT: You are creating ACTUAL FILES to fix the issue, not documentation about the fix.
 
 Please provide a comprehensive analysis in JSON format:
 {{
+    "reasoning": "A detailed step-by-step technical plan explaining how you will fix this issue. Include your analysis of the problem, the approach, and the reasoning behind your solution.",
     "issue_type": "string (bug|feature|documentation|license|config)",
     "priority": "string (low|medium|high|critical)", 
     "required_actions": ["list", "of", "specific", "actions"],
     "files_to_create": ["list", "of", "actual", "file", "paths", "to", "create"],
     "files_to_modify": ["list", "of", "existing", "files", "to", "modify"],
+    "files_to_edit": ["list", "of", "files", "that", "need", "editing"],
     "technical_requirements": ["list", "of", "technical", "requirements"],
     "solution_approach": "detailed description of the actual solution",
     "estimated_complexity": "low/medium/high",
-    "testing_requirements": ["list", "of", "testing", "needs"]
+    "testing_requirements": ["list", "of", "testing", "needs"],
+    "code_fix": "the actual code diff or full file content if applicable"
 }}
 
 EXAMPLES:
@@ -125,11 +136,12 @@ Focus on creating the ACTUAL files that solve the problem, not documentation abo
             response = self.client.chat.completions.create(
                 model="llama-3.1-70b-versatile",
                 messages=[
-                    {"role": "system", "content": "You are an expert software developer and GitHub issue analyst. Analyze issues and provide detailed technical solutions. Always be specific about file names and types. If testing is mentioned, include appropriate test files."},
+                    {"role": "system", "content": "You are an expert Senior Software Engineer Agent. Analyze issues and provide detailed technical solutions with a reasoning step-by-step plan. Always be specific about file names and types. If testing is mentioned, include appropriate test files."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=1000,
-                temperature=0.3
+                max_tokens=1500,
+                temperature=0.3,
+                response_format={"type": "json_object"}
             )
             
             analysis_text = response.choices[0].message.content.strip()
@@ -206,7 +218,10 @@ Focus on creating the ACTUAL files that solve the problem, not documentation abo
             'pr_title': pr_title,
             'pr_body': pr_body,
             'fix_type': analysis.get('issue_type', 'ai_generated'),
-            'ai_analysis': analysis
+            'ai_analysis': analysis,
+            'reasoning': analysis.get('reasoning', ''),
+            'files_to_edit': analysis.get('files_to_edit', []),
+            'code_fix': analysis.get('code_fix', '')
         }
     
     def _generate_file_content_with_ai(self, file_path: str, issue_data: Dict[str, Any], repo_name: str, analysis: Dict[str, Any], repo_analysis: Dict[str, Any]) -> str:

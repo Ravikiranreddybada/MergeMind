@@ -22,6 +22,9 @@ export interface RunDetail {
       pr_title?: string;
       pr_body?: string;
       fix_type?: string;
+      reasoning?: string;
+      files_to_edit?: string[];
+      code_fix?: string;
     };
   };
 }

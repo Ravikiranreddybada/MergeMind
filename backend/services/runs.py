@@ -175,14 +175,14 @@ class RunService:
                 
                 elif step_name == "analyze-repository":
                     # Analyze repository structure and context
-                    await q.put({"type": "log", "data": {"message": "Analyzing repository structure and context..."}})
+                    await q.put({"type": "log", "data": {"message": "🔍 Indexing repository structure and building context map..."}})
                     try:
                         from backend.services.repo_analyzer import repo_analyzer
                         repo_analysis = repo_analyzer.analyze_repository(run["repo"])
                         run["github_data"]["repo_analysis"] = repo_analysis
-                        await q.put({"type": "log", "data": {"message": "Repository analysis completed successfully"}})
+                        await q.put({"type": "log", "data": {"message": "✅ Repository context map built successfully"}})
                     except Exception as e:
-                        await q.put({"type": "log", "data": {"message": f"Repository analysis failed: {e}"}})
+                        await q.put({"type": "log", "data": {"message": f"❌ Repository indexing failed: {e}"}})
                 
                 elif step_name == "create-branch":
                     # Create a new branch for the fix
@@ -202,7 +202,7 @@ class RunService:
                     pass
                 elif step_name == "open-pr":
                     # Create the actual pull request with AI-generated content
-                    await q.put({"type": "log", "data": {"message": "🚀 Creating pull request with AI-generated content..."}})
+                    await q.put({"type": "log", "data": {"message": "🚀 Validating changes and finalizing GitHub Pull Request orchestration..."}})
                     
                     # Use the AI fix that was generated in the propose-fix step
                     ai_fix = run["github_data"].get("ai_fix", {})
@@ -323,7 +323,7 @@ Please review the PR and merge when ready.
                 # Execute gate-specific logic before marking as success
                 if step_name == "propose-fix":
                     # Generate AI-powered fix proposal after approval
-                    await q.put({"type": "log", "data": {"message": "🤖 Generating AI-powered fix proposal..."}})
+                    await q.put({"type": "log", "data": {"message": "🧠 Synthesizing code fix using Llama-3.1-70B reasoning engine..."}})
                     
                     # Fetch issue details
                     issue_details = github_service.get_issue_details(run["issueUrl"])

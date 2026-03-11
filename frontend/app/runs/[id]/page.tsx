@@ -8,6 +8,22 @@ import { RunDetail } from '../../../types/run';
 import { WorkflowTimeline } from '../../../components/WorkflowTimeline';
 import { ApprovalGates } from '../../../components/ApprovalGates';
 
+// Simple Tailwind component for the "Reasoning" section
+const ReasoningBox = ({ text }: { text: string }) => (
+  <div className="bg-slate-900 border-l-4 border-blue-500 p-4 my-4 rounded-r-lg">
+    <div className="flex items-center gap-2 mb-2 text-blue-400 font-bold uppercase text-xs tracking-widest">
+      <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+      </span>
+      Agent Thought Process
+    </div>
+    <p className="text-slate-300 text-sm leading-relaxed italic">
+      {text || "Analyzing codebase and identifying optimal fix strategy..."}
+    </p>
+  </div>
+);
+
 const fetcher = async (url: string) => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout for long-running operations
@@ -293,6 +309,40 @@ export default function RunDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* AI Reasoning / Thought Process */}
+        {(run.github_data?.ai_fix?.reasoning || run.github_data?.ai_fix?.files_to_edit) && (
+          <div className="bg-white rounded-lg shadow">
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">AI Analysis</h2>
+            </div>
+            <div className="p-6">
+              {run.github_data?.ai_fix?.reasoning && (
+                <ReasoningBox text={run.github_data.ai_fix.reasoning} />
+              )}
+              
+              {run.github_data?.ai_fix?.files_to_edit && run.github_data.ai_fix.files_to_edit.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="text-md font-semibold text-gray-900 mb-2">Files to Edit:</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    {run.github_data.ai_fix.files_to_edit.map((file, index) => (
+                      <li key={index} className="text-sm text-gray-700 font-mono">{file}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              {run.github_data?.ai_fix?.code_fix && (
+                <div className="mt-4">
+                  <h3 className="text-md font-semibold text-gray-900 mb-2">Proposed Code Fix:</h3>
+                  <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono">
+                    <code>{run.github_data.ai_fix.code_fix}</code>
+                  </pre>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
